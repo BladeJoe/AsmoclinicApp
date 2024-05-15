@@ -21,7 +21,8 @@ if (process.env.NODE_ENV === 'development') {
     user: 'root',
     database: 'asmocli1_database'
   });
-}connection.connect((err) => {
+}
+connection.connect((err) => {
   if (err) {
     console.error('Error connecting to database: ', err);
     return;

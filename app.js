@@ -33,8 +33,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
-console.log(process.env.NODE_ENV);
+ 
 // Internationalization middleware
 app.use((req, res, next) => {
   let locale = (req.session.user && req.session.user.locale) || (req.query && req.query.locale) || 'ru';
@@ -59,8 +58,12 @@ app.post('/set-language', express.json(), (req, res) => {
   const { locale } = req.body;
   req.session.user = req.session.user || {};
   req.session.user.locale = locale;
-  res.send('Language preference set successfully');
+
+  setTimeout(() => {
+    res.redirect(req.get('referer'));
+  }, 1000); // 1000 milliseconds delay
 });
+
 
 // Routes
 app.use('/', router);
