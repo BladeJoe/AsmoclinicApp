@@ -1,0 +1,60 @@
+ 	<nav class="navbar sticky-lg-top navbar-expand-lg bg-white"
+ 		style="border-bottom-left-radius:40px ;border-bottom-right-radius: 40px;">
+ 		<div class="container d-flex justify-content-between">
+ 			<a href="/"><img class="navbar-brand" src="/assets/images/logo.png" width="200" height="auto"
+ 					style="max-width: 200px; width: 100vw;" alt="logo"></a>
+ 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+ 				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+ 				<span class="navbar-toggler-icon"></span>
+ 			</button>
+ 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+ 				<ul class="navbar-nav text-center d-flex ms-auto align-items-center">
+ 					<li class="nav-item ">
+ 						<a class="nav-link" href="/"><%= i18n.main %></a></li>
+ 					<li class="nav-item">
+ 						<a class="nav-link" href="/team"><%= i18n.team %></a>
+ 					</li>
+ 					<li class="nav-item">
+ 						<a class="nav-link" href="/gallery"><%= i18n.gallery %></a>
+ 					</li>
+ 					<!-- <li class="nav-item">
+ 						<a class="nav-link" href="/blogs"><%= i18n.blogs %></a>
+ 					</li> -->
+ 					<li class="nav-item">
+ 						<a class="nav-link" href="/results"><%= i18n.results %></a>
+ 					</li>
+ 					<li class="nav-item">
+ 						<a class="nav-link" href="/about"><%= i18n.about %></a>
+ 					</li>
+ 					<li class="nav-item">
+						 <!-- <a href="?locale=uz"><img src="/assets/images/uz.png" height="40" alt=""></a>
+							<a href="?locale=ru"><img src="/assets/images/ru.png" height="40" alt=""></a> -->
+							<button name="uz" class="btn btn-white" onclick="setLanguage('uz')"><img src="/assets/images/uz.png" height="40" alt=""></button>
+							<button name="ru" class="btn btn-white" onclick="setLanguage('ru')"><img src="/assets/images/ru.png" height="40" alt=""></button>
+ 					</li>
+
+ 				</ul>
+ 			</div>
+ 		</div>
+ 	</nav>
+	 <script>
+		function setLanguage(locale) {
+		  fetch('/set-language', {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ locale })
+		  })
+		  .then(response => {
+			if (!response.ok) {
+			  throw new Error('Failed to set language preference');
+			}
+			// Reload the page to apply the new language
+			window.location.reload();
+		  })
+		  .catch(error => {
+			console.error('Error:', error);
+		  });
+		}
+	  </script>

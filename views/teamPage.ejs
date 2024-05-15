@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang=<%= i18n.lang %>>
+<%- include('partials/head'); %>
+
+<body>
+	<div class="loader__wrapper">
+
+		<div class="lds-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+	</div>
+
+	<%- include('partials/navbar'); %>
+
+
+	<main>
+		<div class="my-5 container bg-white rounded-5 w-100 d-flex flex-column justify-content-center">
+			<div class="team__inner-wrapper py-5 d-inline-block d-xl-flex align-items-center">
+				<img class="team__img rounded-4 mb-4 mb-xl-0" src="/assets/images/team/team-<%= data.id %>.jpg">
+				<div class="team__card ms-0 ms-xl-5 w-100 card p-3 border-0 text-center">
+					<h2 class="mb-4 text-center"><%= data.name %> </h2>
+					<hr>
+					<p class="fs-3 pt-2 fw-normal ms-2 display-5"><%= data.position %></p>
+				</div>
+			</div>
+			<div>
+				<table class="table table-striped mb-5 border">
+					<tbody id="tbody">
+						<tr>
+							<td colspan="2"><strong><%= i18n.personal %></strong></td>
+						</tr>
+						<tr>
+							<td style="max-width: 200px;"><%= i18n.birthDate %></td>
+							<td><%= data.birthDate %></td>
+						</tr>
+
+
+						<% for (var i = 0; i < data.experience.length; i++) { %>
+							<tr>
+								<% if (!data.experience[i].description) { %>
+									<td colspan="2"><strong><%= data.experience[i].title %></strong></td>
+								<% } else { %>
+									<td><%= data.experience[i].title %></td>
+									<td><%= data.experience[i].description %></td>
+								<% } %>
+							</tr>
+						<% } %>
+						
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+
+
+
+	<%- include('partials/footer'); %>
+
+	<script src="./../assets/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	</script>
+
+
+</body>
+
+</html>

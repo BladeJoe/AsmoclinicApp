@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang=<%= i18n.lang %>>
+
+
+<%- include('partials/head'); %>
+
+<body class="">
+
+
+
+
+
+    <main class="d-flex justify-content-between">
+        <!-- login page -->
+        <form style="height: 100%;"
+            class=" form container visually-hidden  d-flex justify-content-center align-items-center flex-column gap-2">
+            <label class="d-flex flex-column text-center gap-1">
+                <span class="text-primary">Login</span>
+                <input type="text" placeholder="Login" class="form-control login">
+            </label>
+            <label class="d-flex flex-column text-center gap-1">
+                <span class="text-primary">Password</span>
+                <input type="text" placeholder="password" class="form-control password">
+            </label>
+            <label class=" text-center gap-1 w-50 m-3">
+
+                <button class="btn text-center btn-outline-primary" type="submit">Submit</button>
+            </label>
+            <span class="status"></span>
+
+        </form>
+
+        <!-- sidebar -->
+
+        <!-- main page -->
+        <div class="main p-3 bg-white d-flex visually-hidden" style=" width:100%;  border-right: black solid 1px;">
+            <div class="sidebar p-3 bg-white d-flex flex-column" style="min-width :250px;">
+                <a href="/"><img class="navbar-brand" src="/assets/images/logo.png" width="200" height="auto"
+                        style="max-width: 200px; width: 100vw;" alt="logo"></a><a href="/"
+                    class="d-flex align-items-center pb-3 mb-3  text-decoration-none border-bottom">
+
+
+                </a>
+                <ul class="list-unstyled p-3 d-flex flex-column justify-content-between ">
+                    <li class="mb-5  d-flex flex-column justify-content-between gap-2">
+                        <button class="doctors btn btn-outline-primary" onclick="renderDoctors()">Doctors</button>
+                        <!-- <button class="blogs btn btn-outline-primary" onclick="renderBlogs()">Blogs</button> -->
+                        <button class="results btn btn-outline-primary" onclick="renderResults()">Results</button>
+
+                    </li>
+                </ul>
+                <!-- Add a sign-out button -->
+                <button class="btn btn-outline-primary" id="sign-out" style="margin-top: auto;">Sign Out</button>
+
+            </div>
+
+            <div class="wrapper d-flex flex-wrap justify-content-around" style="overflow-x: scroll ;">
+
+                <div id="doctors" class="visually-hidden">
+                    <div class="d-flex flex-wrap">
+                        <% for(var i=0; i<array.length; i++) { %>
+                        <div class="member rounded-3  m-3 p-3" style="width: 500px;background-color: aliceblue;">
+                            <img width="100px" height="100px" src="/assets/images/avatar/team-<%= array[i].id %>.jpg">
+                            <div class="member__right">
+                                <h4 style="text-align: right; display: block; margin-right: 25px;margin-bottom: 8px;"
+                                    class="text-reset ">
+                                    <%= array[i].name %>
+                                </h4>
+                                <div style="text-align: right; display: block; margin-right: 25px;margin-bottom: 8px;">
+                                    <%=array[i].position %>
+
+                                </div>
+
+
+
+                                <form method="post" action="/admin/deleteDoctor/<%= array[i].id %>" class="d-flex gap-2"
+                                    style="float: right;margin-right: 25px;">
+                                    <a class="btn btn-outline-primary" type="button"
+                                        href="/admin/updateDoctor/<%= array[i].id %>">Edit</a>
+                                    <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <div class="member rounded-3  m-3 p-3" style="width: 500px;background-color: aliceblue;">
+                            <img width="96px" src="/assets/images/viewmore.png">
+                            <div class="member__right">
+                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#add-doctor-modal">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="add-doctor-modal" tabindex="-1">
+                    <div class="modal-dialog" style="width: 75%; max-width: unset;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add Doctor</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/admin/addDoctor" class="form-control d-flex flex-column gap-2"
+                                    method="post" enctype="multipart/form-data">
+                                    <div>
+                                        <label for="avatar-field">Avatar: </label>
+                                        <input id="avatar-field" name="avatar" type="file" required>
+                                    </div>
+
+                                    <div>
+                                        <label for="profile-photo-field">Profile Picture: </label>
+                                        <input id="profile-photo-field" name="profile-photo" type="file" required>
+                                    </div>
+
+                                    <input type="text" name="name-uz" placeholder="Name Latin" required>
+                                    <input type="text" name="name-ru" placeholder="Name Cyril" required>
+                                    <input type="text" name="position-uz" placeholder="Position Latin" required>
+                                    <input type="text" name="position-ru" placeholder="Position Cyril" required>
+                                    <input type="date" name="birthday" placeholder="Name" required>
+                                    <div id="add-doctor-modal__experience" class="d-flex gap-2 flex-column">
+                                        <div class="experience-field d-flex gap-2">
+                                            <input name="titleuz[]" class="w-25" type="text" placeholder="title uz"
+                                                required>
+                                            <textarea name="descriptionuz[]" class="w-75" type="text"
+                                                placeholder="description uz"></textarea required>
+                                            <input name="titleru[]" class="w-25" type="text" placeholder="title ru" required>
+                                            <textarea name="descriptionru[]" class="w-75" type="text"
+                                                placeholder="description ru"></textarea>
+                                            <button onclick="deleteExperience(this)" disabled>
+                                                <!-- Add disabled attribute here -->
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="button" onclick="addExperience()">
+                                        Add Field
+                                    </button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary " type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div id="blogs" style="display: none;">
+                    <div class="d-flex flex-wrap">
+
+                        % for(var i=0; i<array.length; i++) { %
+                        <div class="d-flex">
+                            <div class="member rounded-3  m-3 p-3" style="width: 500px;background-color: aliceblue;">
+                                <img width="100px" height="100px"
+                                    src="/assets/images/avatar/team-%= array[i].id %.jpg">
+                                <div class="member__right">
+                                    <h4 style="text-align: right; display: block; margin-right: 25px;margin-bottom: 8px;"
+                                        class="text-reset ">
+                                        %= array[i].name %
+                                    </h4>
+                                    <div
+                                        style="text-align: right; display: block; margin-right: 25px;margin-bottom: 8px;">
+                                        %=array[i].position %
+                                    </div>
+                                    <div class="d-flex gap-2 mr-3" style="float: right;margin-right: 25px;">
+                                        <a class="btn btn-outline-primary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        % } %
+                        <div class="member rounded-3  m-3 p-3" style="width: 500px;background-color: aliceblue;">
+                            <img width="96px" src="/assets/images/viewmore.png">
+                            <div class="member__right">
+                                <button class="btn btn-primary">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  -->
+
+
+                <div id="results" class="visually-hidden">
+                    <div class="d-flex flex-wrap" style="overflow-y: scroll;overflow-x: hidden;">
+
+
+                        <% for(var i = 0; i < imageArray.length; i++) { %>
+
+                        <div class="card d-flex gap-2  m-3 p-3" style="background-color: aliceblue;max-width: 400px;">
+
+                            <img width="366px" height="205px" src="./assets/images/portfolio/<%= imageArray[i++] %>" />
+                            <img width="366px" height="205px" src="./assets/images/portfolio/<%= imageArray[i] %>" />
+
+
+                            <form
+                                action="/admin/deleteResults/<%= imageArray[i].split('.')[0].slice(0, -1)%>/<%= imageArray[i].split('.')[1]%>"
+                                method="post">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button></form>
+
+
+                        </div>
+                        <% } %>
+
+                        <div class="card d-flex gap-2  m-3 p-3 flex-column"
+                            style="width: 400px; background-color: aliceblue;">
+                            <img class="m-auto" width="96px" src="/assets/images/viewmore.png">
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#add-result-modal">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="add-result-modal" tabindex="-1">
+                    <div class="modal-dialog" style="width: 75%; max-width: unset;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add results</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/admin/addResults" method="post"
+                                    class="form-control d-flex flex-column gap-2" enctype="multipart/form-data">
+                                    <div>
+                                        <label for="avatar-field">Before: </label>
+                                        <input id="avatar-field" name="before" type="file" required>
+                                    </div>
+
+                                    <div>
+                                        <label for="profile-photo-field">After: </label>
+                                        <input id="profile-photo-field" name="after" type="file" required>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary " type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </main>
+    <script>
+        let login = document.querySelector(".login")
+        let password = document.querySelector(".password")
+        let form = document.querySelector(".form")
+        let sidebar = document.querySelector(".sidebar")
+        let main = document.querySelector(".main")
+        let addDoctorForm = document.querySelector('#add-doctor-modal form')
+
+        // Retrieve the sign-out button element
+        let signOutButton = document.getElementById("sign-out");
+
+        // Function to update the UI based on the login state
+        function updateUI() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            if (isLoggedIn === "true") {
+                // Hide the login form and show the main content
+                form.classList.add("visually-hidden");
+                sidebar.classList.remove("visually-hidden");
+                main.classList.remove("visually-hidden");
+            } else {
+                // Show the login form and hide the main content
+                form.classList.remove("visually-hidden");
+                sidebar.classList.add("visually-hidden");
+                main.classList.add("visually-hidden");
+            }
+        }
+
+        // Add an event listener to the form for submission
+        form.addEventListener("submit", function (evt) {
+            evt.preventDefault();
+            // Retrieve the login and password values
+            const loginValue = login.value;
+            const passwordValue = password.value;
+
+            // Check if the login and password are correct
+            if (loginValue === "1" && passwordValue === "2") {
+                // Set the login state to true in localStorage
+                localStorage.setItem("isLoggedIn", true);
+                // Update the UI
+                updateUI();
+            } else {
+                // Display an error message
+                document.querySelector(".status").textContent = "ERROR";
+            }
+        });
+
+        // Add an event listener to the sign-out button
+        signOutButton.addEventListener("click", function () {
+            // Remove the login state from localStorage
+            localStorage.removeItem("isLoggedIn");
+            // Update the UI
+            updateUI();
+        });
+
+        // Check the login state on window load
+        window.onload = function () {
+            updateUI();
+        };
+
+        function renderDoctors() {
+            document.querySelector('#results').classList.add('visually-hidden');
+            document.querySelector('.results').classList.replace('btn-primary', 'btn-outline-primary');
+            document.querySelector('#doctors').classList.remove('visually-hidden');
+            document.querySelector('.doctors').classList.replace('btn-outline-primary', 'btn-primary');
+        }
+
+        function renderResults() {
+            document.querySelector('#doctors').classList.add('visually-hidden');
+            document.querySelector('.doctors').classList.replace('btn-primary', 'btn-outline-primary');
+            document.querySelector('#results').classList.remove('visually-hidden');
+            document.querySelector('.results').classList.replace('btn-outline-primary', 'btn-primary');
+        }
+
+
+        function addExperience() {
+            const container = document.querySelector('#add-doctor-modal__experience');
+            const field = document.querySelector('.experience-field');
+            const newField = field.cloneNode(true);
+            const deleteButton = newField.querySelector('button');
+
+            // Reset input values and remove 'required' attribute
+            newField.querySelectorAll('input[type="text"], textarea').forEach(element => {
+                element.value = '';
+            });
+
+            deleteButton.removeAttribute('disabled');
+
+            container.append(newField);
+        }
+
+        function deleteExperience(btn) {
+            btn.parentElement.remove();
+        }
+    </script>
+
+
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang=<%= i18n.lang %>>
+
+
+<%- include('partials/head')%>
+
+<body>
+
+	<div class="loader__wrapper">
+
+		<div class="lds-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+	</div>
+
+	<%- include('partials/navbar')%>
+
+
+	<main class="container">
+
+		<div class="gallery d-flex mx-auto flex-column">
+
+
+			<img class="card rounded-4" style="max-width: 100%;" src="assets/images/gallery/gallery-1.webp" alt="zoom">
+			<img class="card rounded-4" style="max-width: 100%;" src="assets/images/gallery/gallery-2.webp" alt="zoom">
+			<img class="card rounded-4" style="max-width: 100%;" src="assets/images/gallery/gallery-3.webp" alt="zoom">
+			<img class="card rounded-4" style="max-width: 100%;" src="assets/images/gallery/gallery-4.webp" alt="zoom">
+			<img class="card rounded-4" style="max-width: 100%;" src="assets/images/gallery/gallery-5.webp" alt="zoom">
+			<img class="card rounded-4" style="max-width: 100%;" src="assets/images/gallery/gallery-6.webp" alt="zoom">
+		</div>
+
+		<div id="fullpage" onclick="this.style.display='none';this.style.overflow='hidden';"></div>
+
+
+		</div>
+
+
+	</main>
+
+
+
+
+	<%- include('partials/footer')%>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	</script>
+	<script src="./assets/js/main.js"></script>
+	<script>
+		const imgs = document.querySelectorAll('.gallery img');
+		const fullPage = document.querySelector('#fullpage');
+
+		imgs.forEach(img => {
+			img.addEventListener('click', function () {
+				fullPage.style.backgroundImage = 'url(' + img.src + ')';
+				fullPage.style.display = 'block';
+
+				fullPage.style.position = 'fixed';
+			});
+		});
+	</script>
+
+</body>
+
+</html>

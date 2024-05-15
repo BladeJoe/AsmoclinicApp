@@ -1,0 +1,55 @@
+2024-05-15T14:07:38.342Z: TypeError: Cannot read properties of undefined (reading 'map')
+    at /home/asmocli1/nodeJs/routes/admin.js:207:41
+    at Layer.handle [as handle_request] (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/route.js:149:13)
+    at done (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:45:7)
+    at indicateDone (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:49:68)
+    at /home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:155:11
+    at WriteStream.<anonymous> (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/storage/disk.js:43:9)
+    at WriteStream.emit (node:events:529:35)
+    at finish (node:internal/streams/writable:748:10)
+    at finishMaybe (node:internal/streams/writable:733:9)
+2024-05-15T14:09:33.546Z: TypeError: Cannot read properties of undefined (reading 'map')
+    at /home/asmocli1/nodeJs/routes/admin.js:207:41
+    at Layer.handle [as handle_request] (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/route.js:149:13)
+    at done (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:45:7)
+    at indicateDone (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:49:68)
+    at /home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:155:11
+    at WriteStream.<anonymous> (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/storage/disk.js:43:9)
+    at WriteStream.emit (node:events:529:35)
+    at finish (node:internal/streams/writable:748:10)
+    at finishMaybe (node:internal/streams/writable:733:9)
+2024-05-15T14:09:55.099Z: Error: ENOENT: no such file or directory, unlink './public/assets/images/team/team-4.jpg'
+    at Object.unlinkSync (node:fs:1883:3)
+    at /home/asmocli1/nodeJs/routes/admin.js:290:10
+    at Array.forEach (<anonymous>)
+    at /home/asmocli1/nodeJs/routes/admin.js:283:9
+    at Layer.handle [as handle_request] (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/route.js:149:13)
+    at done (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:45:7)
+    at indicateDone (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:49:68)
+    at Multipart.<anonymous> (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:166:7)
+    at Multipart.emit (node:events:517:28)
+2024-05-15T14:15:01.822Z: Error: ENOENT: no such file or directory, unlink './public/assets/images/team/team-5.jpg'
+    at Object.unlinkSync (node:fs:1883:3)
+    at /home/asmocli1/nodeJs/routes/admin.js:290:10
+    at Array.forEach (<anonymous>)
+    at /home/asmocli1/nodeJs/routes/admin.js:283:9
+    at Layer.handle [as handle_request] (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/route.js:149:13)
+    at done (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:45:7)
+    at indicateDone (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:49:68)
+    at Multipart.<anonymous> (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:166:7)
+    at Multipart.emit (node:events:517:28)
+2024-05-15T14:18:15.132Z: Error: ENOENT: no such file or directory, unlink './public/assets/images/team/team-6.jpg'
+    at Object.unlinkSync (node:fs:1883:3)
+    at /home/asmocli1/nodeJs/routes/admin.js:290:10
+    at Array.forEach (<anonymous>)
+    at /home/asmocli1/nodeJs/routes/admin.js:283:9
+    at Layer.handle [as handle_request] (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/express/lib/router/route.js:149:13)
+    at done (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:45:7)
+    at indicateDone (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:49:68)
+    at Multipart.<anonymous> (/home/asmocli1/nodevenv/nodeJs/18/lib/node_modules/multer/lib/make-middleware.js:166:7)
+    at Multipart.emit (node:events:517:28)
