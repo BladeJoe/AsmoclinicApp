@@ -4,7 +4,7 @@
 
 <%- include('partials/head'); %>
 
-<body class="">
+<body style="background: none !important;">
 
 
 
@@ -273,11 +273,14 @@
         function updateUI() {
             const isLoggedIn = localStorage.getItem("isLoggedIn");
             if (isLoggedIn === "true") {
+
+
                 // Hide the login form and show the main content
                 form.classList.add("visually-hidden");
                 sidebar.classList.remove("visually-hidden");
                 main.classList.remove("visually-hidden");
             } else {
+                document.querySelector("body").style.removeProperty("background");
                 // Show the login form and hide the main content
                 form.classList.remove("visually-hidden");
                 sidebar.classList.add("visually-hidden");
@@ -351,6 +354,10 @@
         function deleteExperience(btn) {
             btn.parentElement.remove();
         }
+        document.addEventListener('DOMContentLoaded', function () {
+
+            renderDoctors();
+        }); 
     </script>
 
 

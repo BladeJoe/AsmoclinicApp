@@ -89,8 +89,15 @@ app.use((err, req, res, next) => {
 
 // 404 Error handler
 app.use((req, res, next) => {
-  res.status(404).render('404');
+  res.status(404).render('404', { path: '/404' });
 });
+
+
+process.on('unhandledRejection', (error) => {
+  // Handle unhandled promise rejection
+  console.error('Unhandled promise rejection:', error);
+});
+
 
 // Start server
 app.listen(3000);

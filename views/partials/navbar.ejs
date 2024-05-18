@@ -10,21 +10,22 @@
  			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
  				<ul class="navbar-nav text-center d-flex ms-auto align-items-center">
  					<li class="nav-item ">
- 						<a class="nav-link" href="/"><%= i18n.main %></a></li>
+						<a class="nav-link <%= path === '/' ? 'active' : '' %>" href="/"><%= i18n.main %></a>
+					</li>
  					<li class="nav-item">
- 						<a class="nav-link" href="/team"><%= i18n.team %></a>
+ 						<a class="nav-link <%= path === '/team' ? 'active' : '' %>" href="/team"><%= i18n.team %></a>
  					</li>
  					<li class="nav-item">
- 						<a class="nav-link" href="/gallery"><%= i18n.gallery %></a>
+ 						<a class="nav-link <%= path === '/gallery' ? 'active' : '' %>" href="/gallery"><%= i18n.gallery %></a>
  					</li>
  					<!-- <li class="nav-item">
  						<a class="nav-link" href="/blogs"><%= i18n.blogs %></a>
  					</li> -->
  					<li class="nav-item">
- 						<a class="nav-link" href="/results"><%= i18n.results %></a>
+ 						<a class="nav-link <%= path === '/results' ? 'active' : '' %>" href="/results"><%= i18n.results %></a>
  					</li>
  					<li class="nav-item">
- 						<a class="nav-link" href="/about"><%= i18n.about %></a>
+ 						<a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about"><%= i18n.about %></a>
  					</li>
  					<li class="nav-item">
  						<!-- <a href="?locale=uz"><img src="/assets/images/uz.png" height="40" alt=""></a>

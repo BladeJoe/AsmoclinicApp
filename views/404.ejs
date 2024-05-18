@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang=<%= i18n.lang %>>
-
-
+<html lang="<%= i18n.lang %>">
 <%- include('partials/head'); %>
-
 <body>
     <div class="loader__wrapper">
-
         <div class="lds-ring">
             <div></div>
             <div></div>
             <div></div>
             <div></div>
         </div>
-
     </div>
-
 
     <%- include('partials/navbar'); %>
 
@@ -30,12 +24,10 @@
     </main>
 
     <style>
-        html,
-        body {
+        html, body {
             height: 100%;
             overflow: hidden;
         }
-
         .error-page {
             display: flex;
             align-items: center;
@@ -44,7 +36,6 @@
             height: 100%;
             font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         }
-
         .error-page h1 {
             font-size: 30vh;
             font-weight: bold;
@@ -52,7 +43,6 @@
             margin: -8vh 0 0;
             padding: 0;
         }
-
         .error-page h1:after {
             content: attr(data-h1);
             position: absolute;
@@ -60,7 +50,6 @@
             left: 0;
             right: 0;
             color: transparent;
-            /* webkit only for graceful degradation to IE */
             background: -webkit-repeating-linear-gradient(-45deg, #71b7e6, #69a6ce, #b98acc, #ee8176, #b98acc, #69a6ce, #9b59b6);
             -webkit-background-clip: text;
             background-clip: text;
@@ -69,8 +58,7 @@
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
             animation: animateTextBackground 10s ease-in-out infinite;
         }
-
-        .error-page h1+p {
+        .error-page h1 + p {
             color: #d6d6d6;
             font-size: 8vh;
             font-weight: bold;
@@ -78,8 +66,7 @@
             max-width: 600px;
             position: relative;
         }
-
-        .error-page h1+p:after {
+        .error-page h1 + p:after {
             content: attr(data-p);
             position: absolute;
             top: 0;
@@ -91,7 +78,6 @@
             -moz-background-clip: text;
             background-clip: text;
         }
-
         #particles-js {
             position: fixed;
             top: 0;
@@ -99,41 +85,23 @@
             bottom: 0;
             left: 0;
         }
-
         @keyframes animateTextBackground {
-            0% {
-                background-position: 0 0;
-            }
-
-            25% {
-                background-position: 100% 0;
-            }
-
-            50% {
-                background-position: 100% 100%;
-            }
-
-            75% {
-                background-position: 0 100%;
-            }
-
-            100% {
-                background-position: 0 0;
-            }
+            0% { background-position: 0 0; }
+            25% { background-position: 100% 0; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0 100%; }
+            100% { background-position: 0 0; }
         }
-
         @media (max-width: 767px) {
             .error-page h1 {
                 font-size: 32vw;
             }
-
-            .error-page h1+p {
+            .error-page h1 + p {
                 font-size: 8vw;
                 line-height: 10vw;
                 max-width: 70vw;
             }
         }
-
         a.back {
             position: fixed;
             right: 40px;
@@ -149,13 +117,9 @@
             text-decoration: none;
             transition: 0.25s all ease-in-out;
         }
-
         a.back:hover {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
     </style>
-
-
 </body>
-
 </html>

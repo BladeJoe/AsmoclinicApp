@@ -2,12 +2,12 @@
 <html lang=<%= i18n.lang %>>
 <%- include('partials/head'); %>
 <%- include('partials/navbar'); %>
-<main>
+<body class="d-flex flex-column justify-content-around">
 
 	<main class="container">
 
 
-
+		
 		<div class="wrapper d-flex flex-wrap justify-content-around">
 
 			<% for(var i=0; i<array.length; i++) { %>
@@ -34,38 +34,7 @@
 		</div>
 
 	</main>
-	<!-- <script>
-		let wrapper = document.querySelectorAll(".wrapper") 
-
-		function renderDoctors(array, wrapper) {
-			//wrapper.innerHTML = null;
-			let totalDoctors = 1;
-			let tempFragment = document.createDocumentFragment();
-			for (const item of array) {
-
-				let newMainDiv = document.createElement("div");
-				newMainDiv.setAttribute("class","d-flex flex-wrap justify-content-around");
-				console.log(newMainDiv)
-				let a = document.createElement("a");
-				a.href = item.imgUrl; 
-				a.setAttribute("class", "img")
-
-
-
-				newLi.appendChild(newImg)
-				tempFragment.appendChild(newLi)
-				totalDoctors++;
-			}
-
-			elTotal.textContent = totalDoctors;
-			if (totalDoctors != 0) {
-				wrapper.appendChild(tempFragment)
-
-			} else {}
-
-
-		}
-	</script> -->
+	 
 
 
 	<%- include('partials/footer')%>

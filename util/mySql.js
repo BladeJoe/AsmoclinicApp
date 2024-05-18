@@ -29,8 +29,7 @@ connection.connect((err) => {
   if (err) {
     console.error('Error connecting to database: ', err);
     return;
-  }
-  console.log('Connected to database');
+  } 
 });
 
 // // Create a connection to the MySQL database

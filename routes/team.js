@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
   connection = mysql.createConnection({
     host: `83.69.139.151`,
     user: 'asmocli1_user',
-    password: 'iuL=(Qq8;c+8' ,
+    password: 'iuL=(Qq8;c+8',
     database: 'asmocli1_database'
   });
 } else {
@@ -39,54 +39,32 @@ connection.connect((err) => {
     console.error('Error connecting to database: ', err);
     return;
   }
-  console.log('Connected to database');
 });
 
 function getDoctorData(doctor, locale) {
-
   return {
-
     ...doctor,
-
     name: doctor[`name-${locale}`],
-
     nameUZ: doctor['name-uz'],
-
     nameRU: doctor['name-ru'],
-
     position: doctor[`position-${locale}`],
-
     positionUZ: doctor['position-uz'],
-
     positionRU: doctor['position-ru'],
-
     experience: JSON.parse(doctor[`experience-${locale}`] || '[]').map(item => ({
-
       title: item.title,
-
       description: item.description
-
     })),
-
     experienceUZ: JSON.parse(doctor['experience-uz'] || '[]').map(item => ({
-
       title: item.title,
-
       description: item.description
-
     })),
-
     experienceRU: JSON.parse(doctor['experience-ru'] || '[]').map(item => ({
-
       title: item.title,
-
       description: item.description
-
     }))
-
   }
-
 }
+
 
 
 
@@ -119,14 +97,9 @@ router.get('/', (req, res, next) => {
     results = results.map(doctor => getDoctorData(doctor, locale))
 
 
-
-    // console.log(results)
-
-
-
     res.render('team', {
 
-      // path: `/team`,
+      path: `/team`,
 
       i18n: global.i18n,
 
@@ -142,7 +115,7 @@ router.get('/', (req, res, next) => {
 
 
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', (req, res, next) => {
 
   connection.query(`SELECT * FROM \`doctors\` WHERE id = ?`, [req.params.id], (err, results, fields) => {
 
@@ -160,7 +133,7 @@ router.get('/:id', async (req, res, next) => {
 
     res.render('teamPage', {
 
-      // path: `/team/${req.params.id}`,
+      path: `/team`,
 
       data: getDoctorData(results[0], locale),
 

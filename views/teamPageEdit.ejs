@@ -24,48 +24,84 @@
     </div>
 
     <main class="bg-white">
-        <form action="/admin/updateDoctor/<%= data.id %>" method="post" class="d-flex flex-column justify-content-center" enctype="multipart/form-data">
+        <form action="/admin/updateDoctor/<%= data.id %>" method="POST"
+            class="d-flex flex-column justify-content-center" enctype="multipart/form-data">
             <div class="d-flex justify-content-center align-items-center">
                 <img width="500px" class="rounded-4 m-auto" src="/assets/images/team/team-<%= data.id %>.jpg">
-                <input type="file" name="profile-photoUpdated">
+                <input type="file" name="profile-photo">
                 <img width="200px" class="rounded-4 m-auto" src="/assets/images/avatar/team-<%= data.id %>.jpg">
-                <input type="file" name="avatarUpdated">
+                <input type="file" name="avatar">
             </div>
             <div class="d-flex justify-content-between flex-column gap-2 m-3">
                 <input type="text" name="name-uz" placeholder="Name Latin" value="<%= data.nameUZ %>">
                 <input type="text" name="name-ru" placeholder="Name Cyril" value="<%= data.nameRU %>">
                 <input type="text" name="position-uz" placeholder="Position Latin" value="<%= data.positionUZ %>">
                 <input type="text" name="position-ru" placeholder="Position Cyril" value="<%= data.positionRU %>">
-                <input type="date" value="<%= data.birthDate %>">
-                <table>
-                    <% const experienceUzArray = JSON.parse(data['experience-uz']); %>
-                    <% for (var i = 0; i < experienceUzArray.length; i++) { %>
-                        <div class="experience-field d-flex gap-2 align-items-center" style="vertical-align: center;">
-                            TitleUz:<input name="titleuz[]" class="w-25" type="text" value="<%= experienceUzArray[i].title %>" placeholder="title">
-                            DescriptionUz:<textarea name="descriptionuz[]" class="w-75" type="text" placeholder="description"><%= experienceUzArray[i].description %></textarea>
-                        </div>
+                <input type="date" name="birthday" value="<%= data.birthDate %>">
+                <div id="add-doctor-modal__experience" class="d-flex gap-2 flex-column">
+
+                    <% const experienceUzArray = JSON.parse(data['experience-uz']);const experienceRuArray = JSON.parse(data['experience-ru']);  %>
+                    <% for (var i = 0; i < experienceUzArray.length; i++) { %>  
+                    <div class="experience-field d-flex gap-2 align-items-center" style="vertical-align: center;">
+                        TitleUz:<input name="titleuz[]" class="w-25" type="text"
+                            value="<%= experienceUzArray[i].title %>" placeholder="title">
+                        DescriptionUz:<textarea name="descriptionuz[]" class="w-75" type="text"
+                            placeholder="description"><%= experienceUzArray[i].description %></textarea>
+
+                            
+                        TitleRu:<input name="titleru[]" class="w-25" type="text"
+                            value="<%= experienceRuArray[i].title %>" placeholder="title">
+                        DescriptionRu:<textarea name="descriptionru[]" class="w-75" type="text"
+                            placeholder="descriptionru"><%= experienceRuArray[i].description %></textarea>
+
+
+
+                        <button class="deleteButton" onclick="deleteExperience(this)">
+                            <!-- Add disabled attribute here -->
+                            Delete
+                        </button>
+                    </div>
+
                     <% } %>
-                    <% const experienceRuArray = JSON.parse(data['experience-ru']); %>
-                    <% for (var i = 0; i < experienceRuArray.length; i++) { %>
-                        <div class="experience-field d-flex gap-2 align-items-center" style="vertical-align: center;">
-                            TitleRu:<input name="titleru[]" class="w-25" type="text" value="<%= experienceRuArray[i].title %>" placeholder="title">
-                            DescriptionRu:<textarea name="descriptionru[]" class="w-75" type="text" placeholder="descriptionru"><%= experienceRuArray[i].description %></textarea>
-                        </div>
-                    <% } %>
-                    <button type="submit" class="btn-primary btn mb-5">Submit</button>
-                </table>
+
+                </div> <button type="button" onclick="addExperience()">
+                    Add Field
+                </button>
+
             </div>
+
+            </div><button type="submit" class="btn-primary btn mb-5">Submit</button>
         </form>
     </main>
 
     <script>
-        $(window).on("load", function() {
+        $(window).on("load", function () {
             $(".loader__wrapper").fadeOut("slow");
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(this).scrollTop(0);
         });
+
+        function addExperience() {
+            const container = document.querySelector('#add-doctor-modal__experience');
+            const field = document.querySelector('.experience-field');
+            const newField = field.cloneNode(true);
+            const deleteButton = newField.querySelector('button');
+
+            // Reset input values and remove 'required' attribute
+            newField.querySelectorAll('input[type="text"], textarea').forEach(element => {
+                element.value = '';
+            });
+
+            deleteButton.removeAttribute('disabled');
+
+            container.append(newField);
+        }
+
+        function deleteExperience(btn) {
+            btn.parentElement.remove();
+        }
     </script>
 </body>
 

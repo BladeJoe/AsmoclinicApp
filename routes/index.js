@@ -26,8 +26,7 @@ connection.connect((err) => {
   if (err) {
     console.error('Error connecting to database: ', err);
     return;
-  }
-  console.log('Connected to database');
+  } 
 });
 
 function getDoctorData(doctor, locale) {
@@ -57,6 +56,7 @@ router.get('/', (req, res, next) => {
 
 
     res.render('index', {
+      path: "/",
       i18n: global.i18n,
       array: results
     });
