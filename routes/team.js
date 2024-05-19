@@ -77,7 +77,7 @@ function getDoctorData(doctor, locale) {
 router.get('/', (req, res, next) => {
 
   connection.query(`SELECT * FROM \`doctors\` `, (err, results, fields) => {
-
+    console.log(results);
     if (err) {
 
       console.error('Error executing query: ', err);
@@ -148,3 +148,4 @@ router.get('/:id', (req, res, next) => {
 
 
 module.exports = router;
+

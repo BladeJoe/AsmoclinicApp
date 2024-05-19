@@ -2,39 +2,35 @@
 <html lang=<%= i18n.lang %>>
 <%- include('partials/head'); %>
 <%- include('partials/navbar'); %>
-<body class="d-flex flex-column justify-content-around">
 
-	<main class="container">
+<body>
+
+	<main class="container" style="max-width: 1320px;">
 
 
-		
-		<div class="wrapper d-flex flex-wrap justify-content-around">
 
+		<div class="d-flex flex-wrap">
 			<% for(var i=0; i<array.length; i++) { %>
-			<div class="d-flex flex-wrap justify-content-around">
-				<a href="/team/<%= array[i].id %>" class="text-reset text-decoration-none text-secondary"
-					style="color: #9AB5BE !important;max-width: 500px; width: 100%;">
-					<div class="member rounded-3   bg-white m-3 p-3">
-						<img class="randomImage" src="/assets/images/avatar/team-<%= array[i].id %>.jpg?<%= Math.random() %>">
+			<a href="/team/<%= array[i].id %>" class="text-reset text-decoration-none text-secondary"
+				style="color: #9AB5BE !important;max-width: 500px; width: 100%;">
+				<div class="member rounded-3   bg-white m-3 p-3">
+					<img class="randomImage"
+						src="/assets/images/avatar/team-<%= array[i].id %>.jpg?<%= Math.random() %>">
 
-						<div class="member__right">
-							<h4 style="text-align: right; display: block; margin-right: 25px;" class="text-reset ">
-								<%= array[i].name  %>
-							</h4>
-							<div style="text-align: right; display: block; margin-right: 25px"><%=array[i].position %>
-							</div>
+					<div class="member__right">
+						<h4 style="text-align: right; display: block; margin-right: 25px;" class="text-reset ">
+							<%= array[i].name  %>
+						</h4>
+						<div style="text-align: right; display: block; margin-right: 25px"><%=array[i].position %>
 						</div>
 					</div>
-				</a>
-			</div>
-			<% } %>
-
-
-
+				</div>
+			</a>
+			<% } %> 
 		</div>
 
 	</main>
-	 
+
 
 
 	<%- include('partials/footer')%>
@@ -43,6 +39,6 @@
 	</script>
 
 
-	</body>
+</body>
 
 </html>
