@@ -1,18 +1,12 @@
-const path = require('path');
-
+const path = require('path'); 
 const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
-
+const bodyParser = require('body-parser'); 
 const fs = require('fs-extra')
 const multer = require('multer');
-const mysql = require('mysql');
-const {
-  METHODS
-} = require('http');
-const {
-  error
-} = require('console');
+const mysql = require('mysql'); 
+const axios = require('axios');
+
+
 const {
   unlinkSync
 } = require('fs');
@@ -23,8 +17,7 @@ if (process.env.NODE_ENV === 'development') {
     host: '83.69.139.151',
     user: 'asmocli1_user',
     password: 'iuL=(Qq8;c+8',
-    database: 'asmocli1_database',
-    connectTimeout: 0 // Infinite timeout
+    database: 'asmocli1_database' 
   };
 } else {
   dbConfig = {
@@ -47,8 +40,7 @@ connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) {
     console.error('Error connecting to the database:', err.stack);
-    setTimeout(handleDisconnect, 2000); // Try to reconnect after 2 seconds
-  } else {}
+  }
 });
 
 function getDoctorData(doctor, locale) {
@@ -118,89 +110,84 @@ let upload = multer({
 
 
 router.post('/addDoctor', upload.fields([{
-    name: 'avatar',
-    maxCount: 1
-  },
-  {
-    name: 'profile-photo',
-    maxCount: 1
-  }
+  name: 'avatar',
+  maxCount: 1
+},
+{
+  name: 'profile-photo',
+  maxCount: 1
+}
 ]), (req, res, next) => {
-  let experienceUZ = req.body.titleuz.map((title, i) => {
-    // Check if either title or description is empty
-    if (!title) {
-      return null; // Skip this entry
+let experienceUZ = req.body.titleuz.map((title, i) => {
+  // Check if either title or description is empty
+  if (!title) {
+    return null; // Skip this entry
+  }
+  return {
+    title,
+    description: req.body.descriptionuz ? req.body.descriptionuz[i] : ""
+  };
+}).filter(entry => entry !== null); // Remove null entries
+
+let experienceRU = req.body.titleru.map((title, i) => {
+  // Check if either title or description is empty
+  if (!title || !req.body.descriptionru[i]) {
+    return null; // Skip this entry
+  }
+  return {
+    title,
+    description: req.body.descriptionru ? req.body.descriptionru[i] : ""
+  };
+}).filter(entry => entry !== null); // Remove null entries
+
+let values = [
+  [
+    req.body['name-uz'],
+    req.body['name-ru'],
+    req.body['birthday'],
+    req.body['position-uz'],
+    req.body['position-ru'],
+    JSON.stringify(experienceUZ),
+    JSON.stringify(experienceRU)
+  ]
+];
+let id;
+connection.query(
+  "INSERT INTO `doctors` (`name-uz`, `name-ru`, `birthDate`, `position-uz`, `position-ru`, `experience-uz` , `experience-ru`) VALUES ?",
+  [values],
+  (err, result) => {
+    if (err) {
+      next(err);
+      return;
     }
-    return {
-      title,
-      description: req.body.descriptionuz ? req.body.descriptionuz[i] : ""
-    };
-  }).filter(entry => entry !== null); // Remove null entries
+    if (result) {
+      id = result.insertId;
 
-  let experienceRU = req.body.titleru.map((title, i) => {
-    // Check if either title or description is empty
-    if (!title || !req.body.descriptionru[i]) {
-      return null; // Skip this entry
+      // Use FormData to send files and other data in the inner POST request
+      let files = new FormData();
+      files.append('avatar', req.files ? ['avatar'][0] : null);
+      files.append('profile-photo', req.files ? ['profile-photo'][0] : null);
+      files.append('id', id);
+
+      let baseUrl = process.env.NODE_ENV === 'development' ? 'https://asmoclinic.uz' : 'http://localhost:3000';
+      let url = `${baseUrl}/admin/addDoctorPhotos`;
+      let innerPostConfig = {
+        method: 'post',
+        url: url,
+        data: files
+      };
+      axios(innerPostConfig)
+        .then(innerRes => {
+          res.redirect('back');
+        })
+        .catch(error => {
+          console.error('Error in inner POST request:', error);
+          res.status(500).send('Error in outer POST request');
+        });
     }
-    return {
-      title,
-      description: req.body.descriptionru ? req.body.descriptionru[i] : ""
-    };
-  }).filter(entry => entry !== null); // Remove null entries
-
-  let values = [
-    [
-      req.body['name-uz'],
-      req.body['name-ru'],
-      req.body['birthday'],
-      req.body['position-uz'],
-      req.body['position-ru'],
-      JSON.stringify(experienceUZ),
-      JSON.stringify(experienceRU)
-    ]
-  ];
-  let id;
-  connection.query(
-    "INSERT INTO `doctors` (`name-uz`, `name-ru`, `birthDate`, `position-uz`, `position-ru`, `experience-uz` , `experience-ru`) VALUES ?",
-    [values],
-    (err, result) => {
-      if (err) {
-        next(err);
-        return;
-      }
-      if (result) {
-        id = result.insertId;
-
-        // Use FormData to send files and other data in the inner POST request
-        let files = new FormData();
-        files.append('avatar', req.files ? ['avatar'][0] : null);
-        files.append('profile-photo', req.files ? ['profile-photo'][0] : null);
-        files.append('id', id);
-
-        let baseUrl = process.env.NODE_ENV === 'development' ? 'https://asmoclinic.uz' : 'http://localhost:3000';
-        let url = `${baseUrl}/admin/addDoctorPhotos`;
-
-        fetch(url, {
-            method: 'POST',
-            body: files
-          })
-          .then(response => {
-            if (response.ok) {
-              res.redirect('back');
-            } else {
-              throw new Error('Error in inner POST request');
-            }
-          })
-          .catch(error => {
-            console.error('Error in inner POST request:', error);
-            res.status(500).send('Error in outer POST request');
-          });
-
-      }
-    }
-  );
+  }
+);
 });
-
 router.post('/updateDoctor/:id', upload.fields([{
     name: 'avatar',
     maxCount: 1
@@ -210,8 +197,6 @@ router.post('/updateDoctor/:id', upload.fields([{
     maxCount: 1
   }
 ]), (req, res, next) => {
-
-  let id;
   try {
     let experienceUZ = req.body.titleuz.map((title, i) => {
       if (!title) return null;
@@ -239,7 +224,6 @@ router.post('/updateDoctor/:id', upload.fields([{
       JSON.stringify(experienceRU),
       req.params.id
     ];
-
     connection.query(
       "UPDATE `doctors` SET `name-uz` = ?, `name-ru` = ?, `birthDate` = ?, `position-uz` = ?, `position-ru` = ?, `experience-uz` = ?, `experience-ru` = ? WHERE `doctors`.`id` = ?",
       values,
@@ -250,41 +234,44 @@ router.post('/updateDoctor/:id', upload.fields([{
   } catch (error) {
     next(console.error);
   }
-  let files = fs.readdirSync('./temp/');
-  for (const file of files) {
-    let ext = path.extname(file);
-    if (file.includes("avatar")) {
-      const avatarPath = `./public/assets/images/avatar/team-${req.params.id}`;
-      const tempFilePath = `./temp/avatar${ext}`;
-      let avatarFilePath = avatarPath + ext;
-      try {
-        if (fs.existsSync(avatarFilePath)) {
-          fs.unlinkSync(avatarFilePath);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      if (!fs.existsSync(`./public/assets/images/avatar/team-${req.params.id}${ext}`)) {
-        fs.renameSync(`./temp/avatar${ext}`, `./public/assets/images/avatar/team-${req.params.id}${ext}`);
+  try {
+    // Confirm the files exist in the temp directory
+    let files = fs.readdirSync('./temp/');
+
+    for (const file of files) {
+      let ext = path.extname(file);
+      let fileType;
+      let destinationPath;
+      let tempFilePath = `./temp/${file}`;
+
+      if (file.includes("avatar")) {
+        fileType = "avatar";
+        destinationPath = `./public/assets/images/avatar/team-${req.params.id}${ext}`;
+      } else if (file.includes("profile")) {
+        fileType = "profile-photo";
+        destinationPath = `./public/assets/images/team/team-${req.params.id}${ext}`;
+      } else {
+        continue;
       }
 
-    } else if (file.includes("profile")) {
-      const profilePath = `./public/assets/images/team/team-${req.params.id}`;
-      const tempFilePath = `./temp/profile-photo${ext}`;
-      let profileFilePath = profilePath + ext;
+      // Attempt to delete existing files in the destination
       try {
-        if (fs.existsSync(profileFilePath)) {
-          fs.unlinkSync(profileFilePath);
+        if (fs.pathExistsSync(destinationPath)) {
+          fs.unlinkSync(destinationPath);
         }
-      } catch (error) {
-        console.log(error);
-      }
-      if (!fs.existsSync(`./public/assets/images/team/team-${req.params.id}${ext}`)) {
-        fs.renameSync(`./temp/profile-photo${ext}`, `./public/assets/images/team/team-${req.params.id}${ext}`);
-      }
+      } catch (error) {}
+
+      // Call the function to rename and move the files
+      renameAndMoveFile(tempFilePath, destinationPath, fileType);
     }
+  } catch (err) {
+    // Log any errors that occur during file processing
+    console.log(err);
+    // Send a 500 status with an error message
+    return res.status(500).send("Internal Server Error");
   }
-  res.redirect('/admin')
+  // Redirect to admin page after processing files
+  res.redirect('/admin');
 
 });
 router.post('/addDoctorPhotos', upload.fields([{
@@ -297,40 +284,37 @@ router.post('/addDoctorPhotos', upload.fields([{
   }
 ]), (req, res) => {
   try {
-    // Read files from the temp folder
+    // Confirm the files exist in the temp directory
     let files = fs.readdirSync('./temp/');
 
-    // Loop through each file
     for (const file of files) {
       let ext = path.extname(file);
-      let sourceFilePath = `./temp/${file}`;
-      for (const file of files) {
-        let ext = path.extname(file);
-        let sourceFilePath = `./temp/${file}`;
-        let destinationFilePath;
+      let fileType;
+      let destinationPath;
+      let tempFilePath = `./temp/${file}`;
 
-        // Check if the file extension is .jpg, .jpeg, or .png
-        if (['.jpg', '.jpeg', '.png'].includes(ext.toLowerCase())) {
-          // Check if the file starts with 'avatar' or 'profile-photo'
-          if (file.startsWith('avatar')) {
-            // Define the destination path for avatar images
-            destinationFilePath = `./public/assets/images/avatar/team-${req.body.id}${ext}`;
-            if (destinationFilePath) {
-              fs.removeSync(destinationFilePath)
-            }
-          } else if (file.startsWith('profile-photo')) {
-            // Define the destination path for profile photo images
-            destinationFilePath = `./public/assets/images/team/team-${req.body.id}${ext}`;
-            if (destinationFilePath) {
-              fs.removeSync(destinationFilePath)
-            }
-          }
-          // Move file only if destination is defined
-          if (destinationFilePath) {
-            fs.renameSync(sourceFilePath, destinationFilePath);
-          }
-        }
+      if (file.includes("avatar")) {
+        fileType = "avatar";
+        destinationPath = `./public/assets/images/avatar/team-${req.body.id}${ext}`;
+      } else if (file.includes("profile")) {
+        fileType = "profile-photo";
+        destinationPath = `./public/assets/images/team/team-${req.body.id}${ext}`;
+      } else {
+        continue;
       }
+
+      // Attempt to delete existing files in the destination
+      try {
+        if (fs.pathExistsSync(destinationPath)) {
+          fs.unlinkSync(destinationPath);
+          console.log(`Deleted existing ${fileType} at ${destinationPath}`);
+        }
+      } catch (error) {
+        console.log(`Error deleting ${fileType}:`, error);
+      }
+
+      // Call the function to rename and move the files
+      renameAndMoveFile(tempFilePath, destinationPath, fileType);
     }
   } catch (err) {
     // Log any errors that occur during file processing
@@ -342,43 +326,15 @@ router.post('/addDoctorPhotos', upload.fields([{
   res.redirect('/admin');
 });
 
-// router.put('/putDoctorPhotos', upload.fields([{
-//     name: 'avatar',
-//     maxCount: 1
-//   },
-//   {
-//     name: 'profile-photo',
-//     maxCount: 1
-//   }
-// ]), (req, res) => {
-//   let files = fs.readdirSync('./temp/');
-//   for (const file of files) {
-//     let ext = path.extname(file);
-//     console.log(req);
-//     if (file.includes("avatar")) {
-//       const avatarPath = `./public/assets/images/avatar/team-${req.body.id}`;
-//       const tempFilePath = `./temp/avatar${ext}`;
-//       let avatarFilePath = avatarPath + ext;
-//       try {
-//         if (fs.existsSync(avatarFilePath)) {
-//           fs.unlinkSync(avatarFilePath);
-//         }
-//       } catch (error) {
-//         console.log(error);
-//       }
-//       if (!fs.existsSync(`./public/assets/images/avatar/team-${req.id}${ext}`)) {
-//         fs.renameSync(`./temp/avatar${ext}`, `./public/assets/images/avatar/team-${req.id}${ext}`);
-//       }
-
-//     }
-//   }
-//   res.redirect('/admin')
-// });
-
-
-
-// Delete Doctor
-
+function renameAndMoveFile(tempFilePath, destinationPath, fileType) {
+  try {
+    if (fs.pathExistsSync(tempFilePath)) {
+      fs.renameSync(tempFilePath, destinationPath);
+    } else {}
+  } catch (error) {
+    console.log(`Error moving ${fileType}:`, error);
+  }
+}
 router.post('/deleteDoctor/:id', (req, res, next) => {
   connection.query(`DELETE FROM \`doctors\` WHERE id = ?`, [req.params.id], (err, results, fields) => {
     if (err) {
@@ -494,7 +450,7 @@ router.get('/updateDoctor/:id', (req, res, next) => {
       return;
     }
     res.render('teamPageEdit', {
-      data: getDoctorData(results[0]),
+      data: getDoctorData(results[0],'uz'),
       i18n: global.i18n
     });
   });
@@ -509,7 +465,7 @@ router.get('/', (req, res, next) => {
       return;
     }
 
-    let locale = req.session.user.locale || req.query.locale || 'ru'
+    let locale = req.session.user.locale || req.query.locale || 'uz'
 
     results = results.map(doctor => {
       return {

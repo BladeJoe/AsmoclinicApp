@@ -385,8 +385,8 @@
 
 		<% for(var i = 0; i < imageArray.length  ; i++) { %>
 		<div class="juxtapose d-flex mx-auto gap-5 flex-column mb-5">
-			<img src="./assets/images/portfolio/<%= imageArray[i++] %>" data-label='<%i18n.after%>' alt="keyin" />
-			<img src="./assets/images/portfolio/<%= imageArray[i] %>" data-label='<%i18n.before%>' alt="oldin" />
+			<img src="./assets/images/portfolio/<%= imageArray[i++] %>?<%= Math.random() %>" data-label='<%i18n.after%>' alt="keyin" />
+			<img src="./assets/images/portfolio/<%= imageArray[i] %>?<%= Math.random() %>" data-label='<%i18n.before%>' alt="oldin" />
 		</div>
 		<% } %>
 

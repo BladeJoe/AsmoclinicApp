@@ -15,7 +15,7 @@
 				<a href="/team/<%= array[i].id %>" class="text-reset text-decoration-none text-secondary"
 					style="color: #9AB5BE !important;max-width: 500px; width: 100%;">
 					<div class="member rounded-3   bg-white m-3 p-3">
-						<img src="/assets/images/avatar/team-<%= array[i].id %>.jpg">
+						<img class="randomImage" src="/assets/images/avatar/team-<%= array[i].id %>.jpg?<%= Math.random() %>">
 
 						<div class="member__right">
 							<h4 style="text-align: right; display: block; margin-right: 25px;" class="text-reset ">
