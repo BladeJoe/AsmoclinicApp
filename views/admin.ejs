@@ -191,10 +191,10 @@
 
                         <% for(var i = 0; i < imageArray.length; i++) { %>
 
-                        <div class="card d-flex gap-2  m-3 p-3" style="background-color: aliceblue;max-width: 300px;">
+                        <div class="card d-flex gap-2  m-2 p-2" style="background-color: aliceblue;max-width: 300px;">
 
-                            <img width="366px" height="205px" src="./assets/images/portfolio/<%= imageArray[i++] %>?<%= Math.random() %>" />
-                            <img width="366px" height="205px" src="./assets/images/portfolio/<%= imageArray[i] %>?<%= Math.random() %>" />
+                            <img src="./assets/images/portfolio/<%= imageArray[i++] %>?<%= Math.random() %>" />
+                            <img src="./assets/images/portfolio/<%= imageArray[i] %>?<%= Math.random() %>" />
 
 
                             <form
@@ -206,8 +206,8 @@
                         </div>
                         <% } %>
 
-                        <div class="card d-flex gap-2  m-3 p-3 flex-column"
-                            style="width: 400px; background-color: aliceblue;">
+                        <div class="card d-flex gap-2  m-2 p-2 flex-column"
+                            style="width: 300px; background-color: aliceblue;">
                             <img class="m-auto" width="96px" src="/assets/images/viewmore.png">
                             <button class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#add-result-modal">+</button>
