@@ -15,191 +15,42 @@
 			padding: 10px;
 			cursor: pointer;
 		}
-	</style>
-
-	<div class="loader__wrapper">
-
-		<div class="lds-ring">
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-
-	</div>
+	</style> 
 
 
 	<%- include('partials/navbar')%>
 
 	<main class="my-3">
-		<section class="container  bg-white card fs-4 text-start rounded-4 p-5">
+        <section class="container bg-white card fs-4 text-start rounded-4 p-5">
+            <span class="fs-1 text-center m-5" ><img class="navbar-brand" data-aos="fade-up" src="assets/images/logo.png" width="75%" height="auto" alt="logo"></span>
+            <div data-aos="fade-up"><%= i18n.about1 %></div>
+            <div class="row g-3 my-4 fs-4">
+                <h2 data-aos="fade-up"><%= i18n.abouth2 %></h2>
+                <li data-aos="fade-up"><%= i18n.about3 %></li>
+                <li data-aos="fade-up"><%= i18n.about4 %></li>
+                <li data-aos="fade-up"><%= i18n.about5 %></li>
+                <li data-aos="fade-up"><%= i18n.about6 %></li>
+                <li data-aos="fade-up"><%= i18n.about7 %></li>
 
-			<span class="fs-1 text-center m-5 "><img class="navbar-brand" src="assets/images/logo.png" width="75%"
-					height="auto" alt="logo"></span><%= i18n.about1 %>
-			<div class="row g-3 my-4 fs-4">
-				<h2><%= i18n.abouth2 %></h2>
-				<li><%= i18n.about3 %></li>
-				<li><%= i18n.about4 %></li>
-				<li><%= i18n.about5 %></li>
-				<li><%= i18n.about6 %></li>
-				<li><%= i18n.about7 %></li> 
-
-
-
-				<h2><%= i18n.abouth22 %></h2>
-				<li><%= i18n.about8 %></li>
-				<li><%= i18n.about9 %></li> 
-				<li><%= i18n.about10 %></li> 
-				<li><%= i18n.about11 %></li> 
-				<li><%= i18n.about12 %></li> 
-				<li><%= i18n.about13 %></li> 
-				<li><%= i18n.about14 %></li> 
-				<li><%= i18n.about15 %></li> 
-				<li><%= i18n.about16 %></li> 
-				<li><%= i18n.about17 %></li> 
-				<li><%= i18n.about18 %></li> 
-				<li><%= i18n.about19 %></li> 
-				<li><%= i18n.about20 %></li> 
-				<li><%= i18n.about21 %></li> 
-				<li><%= i18n.about22 %></li> 
-			</div>
-		</section>
-
-
-		<section class="container text-center my-4 fs-4"><%= i18n.workingHours	 %></section>
-		<section class="container card p-4 mt-3 parent" style="overflow-x: auto;">
-			<table class="table table-responsive table-hover child">
-				<tbody><tr>
-					<th scope="col">#</th>
-					<th scope="col"><%= i18n.nameSurname %></th>
-					<th scope="col">Пд</th>
-					<th scope="col">Вт</th>
-					<th scope="col">Ср</th>
-					<th scope="col">Чв</th>
-					<th scope="col">Пн</th>
-					<th scope="col">Сб</th>
-					<th scope="col">Вс</th>
-				</tr>
-				
-				</tbody><tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Бахром Иламанович </td>
-						<td>9:00-14:30</td>
-						<td>9:00-14:30</td>
-						<td>9:00-14:30</td>
-						<td>9:00-14:30</td>
-						<td>9:00-14:30</td>
-						<td>9:00-14:30</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>Барно Юлдашевна </td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>Эвелина Владимировна</td>
-						<td>9:00-14:00</td>
-						<td>9:00-14:00</td>
-						<td>9:00-14:00</td>
-						<td>9:00-14:00</td>
-						<td>9:00-14:00</td>
-						<td>9:00-14:00</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">4</th>
-						<td>Имиль Ильнурович </td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-
-
-					<tr>
-						<th scope="row">5</th>
-						<td>Джавахир Шаробидинович </td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">6</th>
-						<td>Малика Ахмаджоновна </td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">7</th>
-						<td>Мурад Абдуджабборович </td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">7</th>
-						<td>Обид Джуманалиевич</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-					<tr>
-						<th scope="row">8</th>
-						<td>Шахризода Бахадировна</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-
-					<tr>
-						<th scope="row">9</th>
-						<td>Cyxpo6 Саитахматович</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>9:00-17:00</td>
-						<td>----------</td>
-					</tr>
-
-
-			</tbody></table>
-		</section>
-	</main>
+                <h2 data-aos="fade-up"><%= i18n.abouth22 %></h2>
+                <li data-aos="fade-up"><%= i18n.about8 %></li>
+                <li data-aos="fade-up"><%= i18n.about9 %></li>
+                <li data-aos="fade-up"><%= i18n.about10 %></li>
+                <li data-aos="fade-up"><%= i18n.about11 %></li>
+                <li data-aos="fade-up"><%= i18n.about12 %></li>
+                <li data-aos="fade-up"><%= i18n.about13 %></li>
+                <li data-aos="fade-up"><%= i18n.about14 %></li>
+                <li data-aos="fade-up"><%= i18n.about15 %></li>
+                <li data-aos="fade-up"><%= i18n.about16 %></li>
+                <li data-aos="fade-up"><%= i18n.about17 %></li>
+                <li data-aos="fade-up"><%= i18n.about18 %></li>
+                <li data-aos="fade-up"><%= i18n.about19 %></li>
+                <li data-aos="fade-up"><%= i18n.about20 %></li>
+                <li data-aos="fade-up"><%= i18n.about21 %></li>
+                <li data-aos="fade-up"><%= i18n.about22 %></li>
+            </div>
+        </section>
+    </main>
 	<%- include('partials/footer')%>
 
 	 

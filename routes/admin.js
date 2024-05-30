@@ -235,7 +235,7 @@ router.post('/addDoctor', upload.fields([{
     }
     return {
       title,
-      description: req.body.descriptionuz ? req.body.descriptionuz[i] : ""
+      description: req.body.descriptionuz ? req.body.descriptionuz[i] : "·"
     };
   }).filter(entry => entry !== null); // Remove null entries
 
@@ -246,7 +246,7 @@ router.post('/addDoctor', upload.fields([{
     }
     return {
       title,
-      description: req.body.descriptionru ? req.body.descriptionru[i] : ""
+      description: req.body.descriptionru ? req.body.descriptionru[i] : "·"
     };
   }).filter(entry => entry !== null); // Remove null entries
 
@@ -315,7 +315,7 @@ router.post('/updateDoctor/:id', upload.fields([{
       if (!title) return null;
       return {
         title,
-        description: req.body.descriptionuz ? req.body.descriptionuz[i] : ""
+        description: req.body.descriptionuz ? req.body.descriptionuz[i] : "·"
       };
     }).filter(entry => entry !== null);
 
@@ -323,7 +323,7 @@ router.post('/updateDoctor/:id', upload.fields([{
       if (!title) return null;
       return {
         title,
-        description: req.body.descriptionru ? req.body.descriptionru[i] : ""
+        description: req.body.descriptionru ? req.body.descriptionru[i] : "·"
       };
     }).filter(entry => entry !== null);
 

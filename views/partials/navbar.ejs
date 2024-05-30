@@ -1,4 +1,4 @@
- 	<nav class="navbar sticky-lg-top navbar-expand-lg bg-white"
+ 	<nav  class="navbar sticky-lg-top navbar-expand-lg bg-white"
  		style="border-bottom-left-radius:40px ;border-bottom-right-radius: 40px;">
  		<div class="container d-flex justify-content-between">
  			<a href="/"><img class="navbar-brand" src="/assets/images/logo.png" width="200" height="auto"
@@ -28,18 +28,31 @@
  						<a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about"><%= i18n.about %></a>
  					</li>
  					<li class="nav-item">
- 						<!-- <a href="?locale=uz"><img src="/assets/images/uz.png" height="40" alt=""></a>
-							<a href="?locale=ru"><img src="/assets/images/ru.png" height="40" alt=""></a> -->
+ 						<!-- <a href="?locale=uz"><img src="/assets/images/uz.png" height="40" alt="lang"></a>
+							<a href="?locale=ru"><img src="/assets/images/ru.png" height="40" alt="lang"></a> -->
  						<button name="uz" class="btn btn-white" onclick="setLanguage('uz')"><img
- 								src="/assets/images/uz.png" height="40" alt=""></button>
+ 								src="/assets/images/uz.png" height="40" alt="lang"></button>
  						<button name="ru" class="btn btn-white" onclick="setLanguage('ru')"><img
- 								src="/assets/images/ru.png" height="40" alt=""></button>
+ 								src="/assets/images/ru.png" height="40" alt="lang"></button>
  					</li>
 
  				</ul>
  			</div>
  		</div>
  	</nav>
+	
+
+	 <div class="loader__wrapper">
+
+		<div class="lds-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+	</div>
+
  	<script>
  		async function setLanguage(locale) {
  			try {

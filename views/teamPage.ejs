@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div>
-				<table class="table table-striped mb-5 border">
+				<table class="table table-striped mb-5 border" data-aos="fade-up">
 					<tbody id="tbody">
 						<tr>
 							<td colspan="2"><strong><%= i18n.personal %></strong></td>
@@ -42,10 +42,10 @@
 						<% for (var i = 0; i < data.experience.length; i++) { %>
 						<tr>
 							<% if (!data.experience[i].description) { %>
-							<td colspan="2"><strong><%= data.experience[i].title %></strong></td>
+							<td colspan="2" data-aos="fade-up"><strong><%= data.experience[i].title %></strong></td>
 							<% } else { %>
-							<td><%= data.experience[i].title %></td>
-							<td><%= data.experience[i].description %></td>
+							<td  data-aos="fade-up"><%= data.experience[i].title %></td>
+							<td  data-aos="fade-up"><%= data.experience[i].description %></td>
 							<% } %>
 						</tr>
 						<% } %>
@@ -59,10 +59,7 @@
 
 
 
-	<%- include('partials/footer'); %>
-
-	<script src="./../assets/js/main.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	<%- include('partials/footer'); %>  
 	</script>
 
 

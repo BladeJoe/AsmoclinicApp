@@ -383,21 +383,33 @@
 
 	<main class="container">
 
-		<% for(var i = 0; i < imageArray.length  ; i++) { %>
-		<div class="juxtapose d-flex mx-auto gap-5 flex-column mb-5">
-			<img src="./assets/images/portfolio/<%= imageArray[i++] %>?<%= Math.random() %>" data-label='<%i18n.after%>' alt="keyin" />
-			<img src="./assets/images/portfolio/<%= imageArray[i] %>?<%= Math.random() %>" data-label='<%i18n.before%>' alt="oldin" />
-		</div>
-		<% } %>
+        <% for(var i = 0; i < imageArray.length; i++) { %>
+        <div class="juxtapose d-flex mx-auto gap-5 flex-column mb-5 lazy-content" data-aos="fade-up">
+            <img class="lazy-image" src="./assets/images/portfolio/<%= imageArray[i++] %>?<%= Math.random() %>" data-label='<%i18n.after%>' alt="keyin" />
+            <img class="lazy-image" src="./assets/images/portfolio/<%= imageArray[i] %>?<%= Math.random() %>" data-label='<%i18n.before%>' alt="oldin" />
+        </div>
+        <% } %>
 
-	</main>
+    </main>
 
+    <%- include('partials/footer')%>  
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var lazyImages = document.querySelectorAll(".lazy-image");
 
+            var lazyLoad = function() {
+                lazyImages.forEach(function(img) {
+                    if (img.getBoundingClientRect().top < window.innerHeight && !img.src) {
+                        img.src = img.getAttribute("data-src");
+                    }
+                });
+            }
 
-	<%- include('partials/footer')%> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-	</script>
-	<script>
+            lazyLoad();
+
+            document.addEventListener("scroll", lazyLoad);
+            window.addEventListener("resize", lazyLoad);
+        });
 		(function (document, window) {
 
 			var juxtapose = {
