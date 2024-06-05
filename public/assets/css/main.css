@@ -123,7 +123,7 @@
 }
 
 body {
-	background: url("./../images/background.jpg") fixed no-repeat center;
+	background: url("./../images/background.jpg") fixed no-repeat ;
 	background-size: cover;
 	font-weight: bold;
 	height: 100vh;
@@ -344,15 +344,13 @@ button {
 }
 
 .bar_wpp .icon_wpp i {
-	color: #ffffff;
-	font-size: 20px;
+	color: #ffffff; 
 }
 
 .bar_wpp .icon_wpp {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	background-color: #0c7619;
+	justify-content: center; 
 	text-align: center;
 	-webkit-transition: 0.3s;
 	-o-transition: 0.3s;
